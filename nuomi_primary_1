@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <style type="text/css">
+    body{
+        height:100px;
+    }
+    #check-input,#radio-input{
+        display: none;
+    }
+    input{
+        height:0;
+        width:0;
+    }
+    #radio-input+label{
+        display: inline-block;
+        height:16px;
+        width: 16px;
+        background-image: url('check.png');
+        background-position: -24px -10px;
+    }
+    #radio-input:checked+label{
+        background-position: -59px -10px;
+    }
+    #check-input+label{
+        display: inline-block;
+        height:16px;
+        width: 16px;
+        background-image: url('check.png');
+        background-position: -24px -32px;
+    }
+    #check-input:checked+label{
+        background-position: -59px -32px;
+    }
+    #check-input,#radio-input{
+        display: none;
+    }
+    input{
+        height:0;
+        width:0;
+    }
+    #check-input-b::after{
+        content:'';
+        display: inline-block;
+        height:11px;
+        width:10px;
+        border: 1px solid #ddd;
+    }
+    #check-input-b:checked::after{
+        content:'\2611';
+        margin-top:-10px;
+        margin-left: -2px;
+        display: inline-block;
+        color:red;
+        font-size: 18px;
+        border:none;
+    }
+    #radio-input-b::after{
+        content:'';
+        display: inline-block;
+        height:11px;
+        width:11px;
+        border: 1px solid #ddd;
+        border-radius: 50%;
+    }
+    #radio-input-b:checked::after{
+        margin-top: -10px;
+        content:'';
+        display: inline-block;
+        color:red;
+        font-size: 18px;
+        font-weight: bold;
+        border:none;
+    }
+    #radio-input-b:checked::before{
+        content:'';
+        display: inline-block;
+        background-color:red;
+        height:11px;
+        width:11px;
+        border: 1px solid red;
+        box-shadow: 0px 0px 0 3px white inset;
+        border-radius: 50%;
+    }
+    </style>
+</head>
+<body>
+    
+    <input type="checkbox" id="check-input" name=""/>
+    <label for="check-input"></label>
+    
+    <input type="radio" id="radio-input" name=""/>
+    <label for="radio-input"></label>
+    <hr>
+    <input type="checkbox" id="check-input-b" name=""/>
+    <label for="check-input"></label>
+    
+    <input type="radio" id="radio-input-b" name=""/>
+    <label for="radio-input"></label>
+</body>
+</html>
