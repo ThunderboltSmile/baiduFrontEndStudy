@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>diy right-click menu</title>
+    <style type="text/css">
+        *{
+            margin:0;
+        }
+        html,body{
+            width:100%;
+            height:100%;
+        }
+        .main{
+            height:200px;
+            width:100%;
+            background-color: #ddd;
+        }
+        .main>p{
+            height:100%;
+            line-height: 200px;
+            text-align: center;
+        }
+        .panel{
+            background-color: rgb(255,255,255);
+            border-radius: 3px;
+            border:2px solid rgb(208,208,208);
+            box-shadow: 0 0 1px 1px black;
+            color:rgb(55,58,60);
+            position: absolute;
+            height:60px;
+            width:130px;
+            padding-left: 0px;
+        }
+        ul{
+            list-style: none;
+            padding-left: 0px;
+        }
+        li{
+            padding-left: 10px;
+            cursor: pointer;
+        }
+        li:hover{
+            background-color: rgb(247,247,247);
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <p>right click to see the menu</p>
+        <div class="panel" hidden>
+            <ul>
+                <li>menu item 1</li>
+                <li>menu item 2</li>
+            </ul>
+        </div>
+    </div>
+    <script type="text/javascript">
+        document.getElementsByClassName("main")[0].oncontextmenu=function(){
+        var left = event.clientX;
+        var top = event.clientY;
+        if(left+130>window.innerWidth) left=event.clientX-130;
+        if(top+150>window.innerHeight) top=event.clientY-150;
+        var nn=document.getElementsByClassName("panel")[0];
+        //nn.setAttribute("class","panel");
+        nn.style.left=left+"px";
+        nn.style.top=top+"px";
+        nn.style.display="block";
+        event.preventDefault();
+    }
+    document.getElementsByTagName("body")[0].onmousedown=function(){
+        //var body = document.getElementsByTagName("body");
+        var nn=document.getElementsByClassName("panel")[0];
+        //if(nn.length==1) body[0].removeChild(nn[0]);
+        nn.style.display="none";
+    }
+    var nn=document.getElementsByClassName("panel")[0];
+    nn.onmousedown=function(){
+        event.stopPropagation();
+    }
+    var liele=nn.getElementsByTagName("li");
+    for(var i=0;i<liele.length;i++){
+            liele[i].onclick=function(){
+            this.parentNode.parentNode.style.display="none";
+            alert(this.innerHTML);
+        }
+    }
+    </script>
+</body>
+</html>
