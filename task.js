@@ -3,7 +3,6 @@ var page = require('webpage').create(),
     t,
     kw;
     t=Date.now();
-page.onConsoleMessage = function(msg) { console.log(msg); };
 kw=system.args[1];
 page.open('https://www.baidu.com/s?wd='+kw,function(status){
     var result={};
