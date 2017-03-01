@@ -4,7 +4,6 @@ var page = require('webpage').create(),
     t,
     kw,
     device;
-var path='output.txt';
 t=Date.now();
 kw=system.args[1];
 if(system.args.length===3){
@@ -14,7 +13,6 @@ if(system.args.length===3){
     phantom.exit();
 }
 var output=device+".txt";
-console.log(device);
 var imagef=device+".png";
 var conftxt=fs.read('config.txt');
 var config=JSON.parse(conftxt);
