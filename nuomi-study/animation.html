@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>diy right-click menu</title>
+    <style type="text/css">
+        *{
+            box-sizing: border-box;
+        }
+        .container{
+            position: relative;
+            width:500px;
+            height:auto;
+            margin:0 auto;
+        }
+        .container:hover img{
+            filter:blur(5px);
+        }
+        .container>div{
+            top:0;
+            position: absolute;
+        }
+        .caption{
+            padding-top: 80px;
+            width:500px;
+            height:312.5px;
+            opacity:0;
+            color:transparent;
+            border:0;
+            cursor:pointer;
+            transition: all 1s ease-in-out;
+        }
+        .caption:hover{
+            padding-top:50px;
+            opacity:1;
+        }
+        .caption>p{
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            background-image:-webkit-linear-gradient(left,rgb(163,127,58),white 25%,rgb(163,127,58) 50%,white 75%,rgb(163,127,58) 100%);
+            -webkit-background-clip:text;
+            background-size: 200%,100%;
+        }
+       /* .caption:hover>p{
+            opacity:1;
+        }*/
+        .caption::before{
+            position:absolute;
+            display: block;
+            box-sizing: border-box;
+            content:"";
+            width:200px;
+            height:280px;
+            border:3px solid #ddd;
+            border-left:0;
+            border-right:0;
+            top:16px;
+            left:150px;
+            opacity:0;
+            transition: all 1s;
+        }
+        .caption::after{
+            position:absolute;
+            display: block;
+            box-sizing: border-box;
+            content: "";
+            width:400px;
+            height: 140px;
+            border:3px solid #ddd;
+            border-top:0;
+            border-bottom: 0;
+            top:86px;
+            left:50px;
+            opacity:0;
+            transition: all 1s;
+        }
+        .caption:hover::before{
+            width:400px;
+            height:280px;
+            top:16px;
+            left:50px;
+            opacity:1;
+        }
+        .caption:hover::after{
+            width:400px;
+            height: 280px;
+            top:16px;
+            left:50px;
+            opacity:1;
+        }
+        @keyframes textShing{
+            0%{background-position:0,0}
+            
+            100%{background-position: -100%,0}
+        }
+        .caption:hover p{
+            background-image:-webkit-linear-gradient(left,rgb(163,127,58),white 25%,rgb(163,127,58) 50%,white 75%,rgb(163,127,58) 100%);
+            background-size: 200% 100%;
+            -webkit-background-clip:text;
+            -webkit-animation:textShing 5s; 
+            animation-iteration-count: infinite;
+            animation-timing-function:linear;
+            /*animation-direction: alternate;*/
+        }
+        img{
+            max-width:100%;
+            height:auto;
+            cursor:pointer;
+            transition: all 1s;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <div class="container">
+            <img src="xm.jpg">
+            <div class="caption">
+                <p>如果结局不如你所愿</p><p>就在尘埃落定前</p><p>奋力一搏</q>
+            </div>
+        </div>
+    </section>
+    <script type="text/javascript"></script>
+</body>
+</html>
