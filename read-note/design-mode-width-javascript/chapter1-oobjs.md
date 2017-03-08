@@ -6,7 +6,7 @@
 
 ###1.4.1 使用克隆的原型模式
 ECMAScript5 提供了Object.create()方法用于对象的克隆：
-···javascript
+```javascript
   var Plane = function（）{
       this.blood=100;
       this,attacklevel=1;
