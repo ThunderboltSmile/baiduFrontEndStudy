@@ -301,3 +301,54 @@ window.onresize=throttle(function(){//这里面的me是指window?
 },500);
 ```
 ####4.分时函数
+假设要创建一个好友列表，但是这个好友列表包含一千个好友，如果一次性加载这一千个好友并添加节点，那么会引起<br>
+严重的性能问题，因此可以分批进行，比如每300毫秒创建加载100个好友节点，每次执行时如果定时器还在，那么久拒绝执行<br>
+每次执行完成后先清除定时器然后等待下一次的调用。
+```javascript
+var timeChunk=function(ary,fn,count){
+	var obj,t;
+	var l=ary.length;
+	var start=function(){
+		for(var i=0;i<Math.min(count||1,ary.length;i++){
+			obj=ary.shift();
+			fn(obj);
+		}
+	return function(){
+                t=setInterval(function(){
+			if(ary.length===0){
+				return clearInterval(t);
+			}
+			start()
+		},300);
+	}
+}
+```
+以上代码可以用于任何无需返回值的函数的分时加载，用于我们的加载好友节点的情况则是:
+
+```javascript
+var ary=[];
+for(var i=0;i<1000;i++){
+	ary.push(i);
+}
+var renderFriendList=timeChunk(ary,function(n){
+	var f=document.careateElement("div");
+	f.innerHTML=n;
+	document.body.appendChild(f);
+},8);
+renderFriendList();//每隔300ms创建8个好友列表节点
+```
+####惰性加载函数
+ 在某些情况下，对某一个固定条件进行反复判断从而改变相应的函数是可以避免的，即在函数第一次调用时就根据情况<br>
+ 对函数本身进行改写以适应当前场合。<br>
+ 如根据浏览器嗅探结果改变绑定事件的函数addEvent;
+```javascript
+var addEvent=function(elem,type,handler){
+	if(window.addEventListenet){
+	    addEvent=function(elem,type,hadler){
+		elem.addEventListener(type,handler,false)
+	}else if(window.attachEvent){
+		elem.attachEvent(type,handler)
+	}
+	addEvent(elem,type,handler);
+}
+```
