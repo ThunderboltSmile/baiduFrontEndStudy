@@ -38,7 +38,6 @@ var report=(function(){
   }
 })();
 ```
-
 ###闭包和面向对象设计
 面向对象中的对象---过程与数据的结合，可以使用闭包实现一个完整的面向对象系统
 ```javascript
@@ -165,12 +164,10 @@ for(var i=0,type;type=['String','Array','Number'][i++];){
  };
  Type.isArray([]);//输出true
  Type.isString("str");//输出true
- 
  ```
- 2. getSingle--单例模式
- 
- ###高阶函数实现AOP
- 即把一些跟核心业务逻辑无关的功能抽离出来，再通过“动态织入”的方式掺入业务逻辑中<br>
+ 2. getSingle--单例模式:
+###高阶函数实现AOP
+ AOP即把一些跟核心业务逻辑无关的功能抽离出来，再通过“动态织入”的方式掺入业务逻辑中<br>
  可以保持业务逻辑模块的纯净，方便复用。<br>
  AOP的实现方法有很多，比如Function.prototype:
  
@@ -200,15 +197,14 @@ for(var i=0,type;type=['String','Array','Number'][i++];){
      });
  func();//会先执行after里面的__self.apply(this,arguments),因此输出1，2；然后执行afterfn.apply(this,arguments)输出3
  ```
- 
- ###高阶函数的其他应用
+###高阶函数的其他应用
  1. curring
  2. uncurring
  3. 函数节流
  4. 分时函数
  5. 惰性加载
  
- ####1.curring
+####1.curring
  curring又称为部分求值，一个curing的函数首先会接受一些参数并不会立即求值，而是继续返回另外一个函数<br>直到函数真正需要被求值时才会将之前传入的参数一次性求值。
  ```javascript
  var curring=function(fn){
@@ -256,7 +252,7 @@ for(var i=0,type;type=['String','Array','Number'][i++];){
  push(obj,2);
  console.log(obj);//输出：{'length':2,'0':1,'1',2}
  ```
- 以上是uncuring的一种实现方式，下面还有另外一种:
+以上是uncuring的一种实现方式，下面还有另外一种:
  ```javascript
  Function.prototype.uncurring=function(){
    var self=this;
@@ -274,7 +270,7 @@ for(var i=0,type;type=['String','Array','Number'][i++];){
 2. 函数节流的原理
 使用setTimeout来限制函数被触发的频率
 3. 函数节流的代码实现
-以下的throttle函数是一种实现方式，原理是将被执行函数用setTimeout延迟一段时间再执行，在延迟<br>事件内忽略调用请求
+以下的throttle函数是一种实现方式，原理是将被执行函数用setTimeout延迟一段时间再执行，在延迟<br>时间内忽略调用请求
 ```javascript
 var throttle=function(fn,interval){
    var __self=fn,
