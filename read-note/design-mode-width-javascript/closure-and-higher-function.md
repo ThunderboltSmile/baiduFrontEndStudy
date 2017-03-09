@@ -135,3 +135,169 @@ var setCommand=function(command){
 setCommand(createCommand(Tv));
 ```
 ##高阶函数<br>
+高阶函数是指至少满足下列条件之一的函数：
+1. 函数可以作为参数被传递
+2. 函数可以作为返回值输出
+###函数作为参数传递
+1. 回调函数
+2. Array.prototype.sort
+Array.prototype.sort接受一个函数当作参数，这个函数封装了排序规则<br>
+```javascrtpt
+//从小到大排列
+[1,4,3].sort(function(a,b){
+  return a-b;
+});//输出[1,3,4]
+//从大到小排列
+[1,4,3].sort(function(a,b){
+  return b-a;
+});//输出[4,3,1]
+```
+###函数作为返回值输出
+1. 判断数据类型
+```javascript
+var Type={};
+for(var i=0,type;type=['String','Array','Number'][i++];){
+  (function(type){
+    Type['is'+type]=function(obj){
+      return Object.prototype.toString.call(obj)==='[object '+type+']';
+    }
+  })(type)
+ };
+ Type.isArray([]);//输出true
+ Type.isString("str");//输出true
+ 
+ ```
+ 2. getSingle--单例模式
+ 
+ ###高阶函数实现AOP
+ 即把一些跟核心业务逻辑无关的功能抽离出来，再通过“动态织入”的方式掺入业务逻辑中<br>
+ 可以保持业务逻辑模块的纯净，方便复用。<br>
+ AOP的实现方法有很多，比如Function.prototype:
+ 
+ ```javascript
+ Function.prototype.before=function(beforefn){
+   var __self=this;
+   return function(){
+     beforefn.apply(this,arguments);
+     return __self.apply(this,arguments);
+   }
+ };
+ Function.prototype.after=function(afterfn){
+   var __self=this;
+   return function(){
+     var ret=__self.apply(this,arguments);
+     afterfn.apply(this,arguments);
+     return ret;
+   }
+ };
+ var func=function(){
+   concole.log(2);
+ }
+ func=func.before(function(){//这里的__self为func
+         console.log(1);
+     }).after(function(){//这里的__self变成了织入beforefn后的func
+         console.log(3);
+     });
+ func();//会先执行after里面的__self.apply(this,arguments),因此输出1，2；然后执行afterfn.apply(this,arguments)输出3
+ ```
+ 
+ ###高阶函数的其他应用
+ 1. curring
+ 2. uncurring
+ 3. 函数节流
+ 4. 分时函数
+ 5. 惰性加载
+ 
+ ####1.curring
+ curring又称为部分求值，一个curing的函数首先会接受一些参数并不会立即求值，而是继续返回另外一个函数<br>直到函数真正需要被求值时才会将之前传入的参数一次性求值。
+ ```javascript
+ var curring=function(fn){
+   var args=[];
+   return function(){
+     if(arguments.length===0){
+       return fn.apply(this,args);
+     }else{
+       [].push.apply(args,arguments);
+       return arguments.callee;
+     }
+   }
+ }
+ var cost=function(){
+     var money=0;
+     return function(){
+       for(var i=0,l=arguments.length;i<l;i++){
+         money+=arguments[i];
+       }
+       return money;
+     }
+ })();
+ var cost=curring(cost);//转化成curing函数
+ cost(100);//未真正求值
+ cost(200);//未真正求值
+ cost(300);//未真正求值
+ 
+ alert(cost());//由于arguments.length==0成立，进入cost函数进行求和，输出money
+ ```
+ ####2. uncurring
+ 让一个对象借用原本不属于它的方法 如：
+ ```javascript
+ Function.prototype.uncurring=function(){
+   var self=this;
+   return function(){
+     var obj=Array.prototype.shift.call(arguments);
+     return self.apply(obj,arguments);
+   }
+ };
+ var push=Array.prototype.push.uncurring();//现在push变成了通用的方法
+ var obj={
+         'length':1,
+         '0':1
+     }
+ push(obj,2);
+ console.log(obj);//输出：{'length':2,'0':1,'1',2}
+ ```
+ 以上是uncuring的一种实现方式，下面还有另外一种:
+ ```javascript
+ Function.prototype.uncurring=function(){
+   var self=this;
+   return function(){
+     return Function.prototype.call.apply(this,arguments);//其实就是借用了call方法
+     }
+ }
+ ```
+####3.函数节流
+在某些情况下需要某些函数不经过用户主动调用即触发<br>此时容易由于函数频繁调用造成性能问题<br>
+1. 函数被频繁调用的场景
+* window.onresize事件
+* mousemove事件
+* 上传进度
+2. 函数节流的原理
+使用setTimeout来限制函数被触发的频率
+3. 函数节流的代码实现
+以下的throttle函数是一种实现方式，原理是将被执行函数用setTimeout延迟一段时间再执行，在延迟<br>事件内忽略调用请求
+```javascript
+var throttle=function(fn,interval){
+   var __self=fn,
+   timer,
+   firstTime=true;//验证是否是第一次调用
+   return function(){
+   		var args=arguments,
+		__me=this;
+		if(firstTime){
+			__self.apply(__me,args);
+		}
+		if(timer){
+			return false;
+		}
+		timer=setTimeout(function(){//延迟一段时间执行		
+            clearTimeout(timer);
+			timer=null;
+			__self.apply(__me,args);
+		},interval||500);
+	}
+};
+window.onresize=throttle(function(){//这里面的me是指window?
+    console.log(1);
+},500);
+```
+####4.分时函数
