@@ -133,14 +133,14 @@ var setCommand=function(command){
 
 setCommand(createCommand(Tv));
 ```
-##高阶函数<br>
+##高阶函数
 高阶函数是指至少满足下列条件之一的函数：
 1. 函数可以作为参数被传递
 2. 函数可以作为返回值输出
 ###函数作为参数传递
 1. 回调函数
 2. Array.prototype.sort
-Array.prototype.sort接受一个函数当作参数，这个函数封装了排序规则<br>
+Array.prototype.sort接受一个函数当作参数，这个函数封装了排序规则
 ```javascrtpt
 //从小到大排列
 [1,4,3].sort(function(a,b){
@@ -166,6 +166,7 @@ for(var i=0,type;type=['String','Array','Number'][i++];){
  Type.isString("str");//输出true
  ```
  2. getSingle--单例模式
+ 
 ###高阶函数实现AOP
 AOP即把一些跟核心业务逻辑无关的功能抽离出来，再通过“动态织入”的方式掺入业务逻辑中<br>
 可以保持业务逻辑模块的纯净，方便复用。<br>
@@ -196,7 +197,7 @@ AOP的实现方法有很多，比如Function.prototype:
      });
  func();//会先执行after里面的__self.apply(this,arguments),因此输出1，2；然后执行afterfn.apply(this,arguments)输出3
  ```
- ###高阶函数的其他应用
+###高阶函数的其他应用
  1. curring
  2. uncurring
  3. 函数节流
@@ -233,7 +234,7 @@ AOP的实现方法有很多，比如Function.prototype:
  
  alert(cost());//由于arguments.length==0成立，进入cost函数进行求和，输出money
  ```
- ####2. uncurring
+####2. uncurring
  让一个对象借用原本不属于它的方法 如：
  ```javascript
  Function.prototype.uncurring=function(){
