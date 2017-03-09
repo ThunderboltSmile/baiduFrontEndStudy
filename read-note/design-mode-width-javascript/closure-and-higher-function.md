@@ -165,13 +165,12 @@ for(var i=0,type;type=['String','Array','Number'][i++];){
  Type.isArray([]);//输出true
  Type.isString("str");//输出true
  ```
- 2. getSingle--单例模式:
+ 2. getSingle--单例模式
 ###高阶函数实现AOP
- AOP即把一些跟核心业务逻辑无关的功能抽离出来，再通过“动态织入”的方式掺入业务逻辑中<br>
- 可以保持业务逻辑模块的纯净，方便复用。<br>
- AOP的实现方法有很多，比如Function.prototype:
- 
- ```javascript
+AOP即把一些跟核心业务逻辑无关的功能抽离出来，再通过“动态织入”的方式掺入业务逻辑中<br>
+可以保持业务逻辑模块的纯净，方便复用。<br>
+AOP的实现方法有很多，比如Function.prototype:
+```javascript
  Function.prototype.before=function(beforefn){
    var __self=this;
    return function(){
@@ -197,7 +196,7 @@ for(var i=0,type;type=['String','Array','Number'][i++];){
      });
  func();//会先执行after里面的__self.apply(this,arguments),因此输出1，2；然后执行afterfn.apply(this,arguments)输出3
  ```
-###高阶函数的其他应用
+ ###高阶函数的其他应用
  1. curring
  2. uncurring
  3. 函数节流
@@ -333,7 +332,7 @@ var renderFriendList=timeChunk(ary,function(n){
 },8);
 renderFriendList();//每隔300ms创建8个好友列表节点
 ```
-####惰性加载函数
+####5.惰性加载函数
  在某些情况下，对某一个固定条件进行反复判断从而改变相应的函数是可以避免的，即在函数第一次调用时就根据情况<br>
  对函数本身进行改写以适应当前场合。<br>
  如根据浏览器嗅探结果改变绑定事件的函数addEvent;
