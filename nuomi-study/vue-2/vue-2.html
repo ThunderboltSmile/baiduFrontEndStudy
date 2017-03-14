@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>observer mode</title>
+    <style type="text/css">
+        *{
+            box-sizing: border-box;
+        }
+        .container{
+            position: relative;
+            width:500px;
+            height:auto;
+            margin:0 auto;
+        }
+        .container>div{
+            top:0;
+            position: absolute;
+        }
+        .caption{
+            padding-top: 80px;
+            width:500px;
+            height:312.5px;
+            border:0;
+            cursor:pointer;
+            transition: all 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <div class="container">
+            <div class="caption">
+                <p>please open developer tool (press f12) and input your code</p>
+            </div>
+        </div>
+    </section>
+    <script type="text/javascript" src="observer.js"></script>
+    <script type="text/javascript" src="demo.js"></script>
+</body>
+</html>
