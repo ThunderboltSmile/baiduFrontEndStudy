@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>diy right-click menu</title>
+    <style type="text/css">
+        .loading {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            left: calc(50vw - 100px);
+            top: calc(50vh - 100px);
+            transform: rotate(225deg);
+        }
+        .ring {
+            width: 180px;
+            height: 180px;
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            border-radius: 90px;
+            border: 2px solid yellow;
+            border-top-color: transparent;
+            animation: ring 2s linear infinite;
+        }
+        .background {
+            width: 0;
+            height: 0;
+            position: absolute;
+            left: 40px;
+            top: 40px;
+            border: 60px solid pink;
+            border-left-color: yellow;
+            border-bottom-color: yellow;
+            border-radius: 60px;
+        }
+        .left {
+            width: 0;
+            height: 0;
+            position: absolute;
+            left: 40px;
+            top: 40px;
+            border: 60px solid pink;
+            border-radius: 60px;
+            border-left-color: transparent;
+            border-bottom-color: transparent;
+            z-index: 3;
+            animation: left 2s linear infinite;
+        }
+        .right {
+            width: 0;
+            height: 0;
+            position: absolute;
+            left: 40px;
+            top: 40px;
+            border: 60px solid yellow;
+            border-radius: 60px;
+            border-left-color: transparent;
+            border-bottom-color: transparent;
+            z-index: 2;
+            animation: right 2s linear infinite;
+        }
+        @keyframes ring {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        @keyframes left {
+            0% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(180deg);
+            }
+            50% {
+                transform: rotate(180deg);
+                z-index: 3;
+            }
+            75% {
+                transform: rotate(360deg);
+                z-index: 3;
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        @keyframes right {
+            0% {
+                transform: rotate(0deg);
+                z-index: 3;
+            }
+            25% {
+                transform: rotate(0deg);
+                z-index: 3;
+            }
+            25.001% {
+                transform: rotate(0deg);
+                z-index: 2;
+            }
+            50% {
+                transform: rotate(180deg);
+                z-index: 2;
+            }
+            75% {
+                transform: rotate(180deg);
+                z-index: 2;
+            }
+            75.001% {
+                transform: rotate(180deg);
+                z-index: 3;
+            }
+            100% {
+                transform: rotate(360deg);
+                z-index: 3;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading">
+        <div class="background"></div>
+        <div class="left"></div>
+        <div class="right"></div>
+    <div class="ring"></div>
+</div>
+</body>
+</html>
