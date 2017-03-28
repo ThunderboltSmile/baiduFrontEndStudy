@@ -61,7 +61,7 @@
         var Carousel=(function(){
             var _bind=function(that){
                 var self=that;
-                var to=turn=+self.start;
+                var to=+self.start;
                 self.wrapper.addEventListener(self.config.event,function(){
                     var etarget=event.target?event.target:event.srcElement;
                     if(etarget.nodeName==self.config.ele.toUpperCase()){
@@ -76,8 +76,8 @@
                 self.wrapper.addEventListener("click",function(){
                     var etarget=event.target?event.target:event.srcElement;
                     if(etarget.nodeName==self.config.ele.toUpperCase()){
-                        turn+=self.step;
-                        self.wrapper.style.transform="rotateY("+turn+"deg)";
+                        to+=self.step;
+                        self.wrapper.style.transform="rotateY("+to+"deg)";
                     }
                 })
             }
@@ -89,7 +89,6 @@
                 this.wrapper=document.querySelector(config.wrapper);
                 this.start=0;
                 this.step=config.step;
-                console.log(this);
                 _bind(this);
             }
             return carousel;
