@@ -35,20 +35,16 @@ http.createServer(function (request, response) {
    var queryObj = url.parse(request.url,true).query;
    console.log(queryObj);
    // 从文件系统中读取请求的文件内容 
-   var task="phantomjs D:\\datatool\\phantomjs\\img\\png.js";
+   var task="phantomjs D:\\datatool\\phantomjs\\img\\png.js";//执行本地的png.js即phantomjs脚本
    exec(task + ' ' + queryObj.word + ' ' +queryObj.device,(error,stdout,stderr)=>{
       if(error){
          throw error;
       }else{
          response.writeHead(200, {'Content-Type': 'text/html'});
-         response.write(stdout);
-         
          // 新建一个文档
          console.log(JSON.parse(stdout));
          var results = new Result(JSON.parse(stdout));
          // 将文档保存到数据库
-         console.log(results);
-         console.log(stdout);
          results.save(function(err, result) {
            if (err) {
               console.error("err:"+err);
@@ -58,5 +54,4 @@ http.createServer(function (request, response) {
          });
       }
    })
-
 }).listen(8081);
