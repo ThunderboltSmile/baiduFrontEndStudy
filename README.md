@@ -1,4 +1,4 @@
 # baiduFrontEndStudy
 Note my class content
 
-https://thunderboltsmile.github.io/baiduFrontEndStudy/
+https://thunderboltsmile.github.io/baiduFrontEndStudy/index.html
